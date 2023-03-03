@@ -109,7 +109,10 @@ const showModalDetails = (showModal) => {
             </div>
         </div>
         <div class="col-lg-6 text-center border">
-            <img class="w-100 img-fluid modal-img" src="${showModal.image_link[0]}">
+            <div class="position-relative">
+                <img class="w-100 img-fluid modal-img" src="${showModal.image_link[0]}">
+                <button id="btn-position" class="${showModal.accuracy.score * 100 ? showModal.accuracy.score * 100 : 'd-none' }">${showModal.accuracy.score * 100}% accuracy</button>
+            </div>
             <h3>${showModal.input_output_examples ? showModal.input_output_examples[0].input : 'Data Not Found'}</h3>
             <p>${showModal.input_output_examples ? showModal.input_output_examples[0].output : 'Data Not Found'}</p>
         </div>
