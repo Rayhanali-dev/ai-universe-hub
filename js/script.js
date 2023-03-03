@@ -1,24 +1,35 @@
-const loadData = () => {
+const loadData = (limit) => {
     fetch(`https://openapi.programming-hero.com/api/ai/tools`)
         .then(res => res.json())
-        .then(data => displayData(data.data.tools.slice(0, 6)))
+        .then(data => displayData(data.data.tools, limit))
 }
 
-const displayData = (data) => {
+const displayData = (data, limit) => {
     const parentContainer = document.getElementById('feature-container');
     parentContainer.textContent = "";
-
+    const showBtn = document.getElementById('show-btn');
+    if (limit && data.length > 6) {
+        data = data.slice(0, 6);
+        showBtn.classList.remove ('d-none')
+    } else {
+        showBtn.classList.add('d-none')
+    }
+    
     data.forEach(singleElement => {
         const div = document.createElement('div');
         div.classList.add('col')
+        const features = singleElement.features;
+        const featureList = features.map(feature => `<li>${feature}</li>`).join('');
+        // console.log(featureList);
+
         div.innerHTML =  `
         <div class="card h-100">
             <img src="${singleElement.image}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Features</h5>
-                <ol type="1" id="list-item">
-
                 <ol>
+                    ${featureList}
+                </ol>
             </div>
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <div>
@@ -29,7 +40,7 @@ const displayData = (data) => {
                     </div>
                 </div>
                 <div>
-                    <a href="#"><i class="fa-solid fa-arrow-right"></i></a>
+                    <button class="btn"><i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
         </div>`;
@@ -37,33 +48,9 @@ const displayData = (data) => {
     });
 }
 
-
-const showAllItems = () => {
-    fetch(`https://openapi.programming-hero.com/api/ai/tools`)
-        .then(res => res.json())
-        .then(data => displayData(data.data.tools))
-        displayData()
-}
-
-
 document.getElementById('btn-clicked').addEventListener('click', function(){
-    const showAllbtn = document.getElementById('show-btn');
-    showAllbtn.classList.add('d-none')
-    showAllItems()
+    loadData()
 })
 
 
-const FeatureCardList = () => {
-    fetch(`https://openapi.programming-hero.com/api/ai/tools`)
-        .then(res => res.json())
-        .then(data => displayFeatureCard(data.data.tools))
-}
-
-const displayFeatureCard = (allList) => {
-    
-}
-
-
-FeatureCardList()
-
-loadData()
+loadData(6)
