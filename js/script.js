@@ -7,6 +7,8 @@ const loadData = (limit) => {
 const displayData = (data, limit) => {
     const parentContainer = document.getElementById('feature-container');
     parentContainer.textContent = "";
+
+    // show 6 card
     const showBtn = document.getElementById('show-btn');
     if (limit && data.length > 6) {
         data = data.slice(0, 6);
@@ -46,11 +48,22 @@ const displayData = (data, limit) => {
         </div>`;
         parentContainer.appendChild(div)
     });
+    toggleSpinner(false)
 }
 
 document.getElementById('btn-clicked').addEventListener('click', function(){
     loadData()
 })
+
+
+const toggleSpinner = (isLoading) => {
+    const spinner = document.getElementById('spinner')
+    if (isLoading == true) {
+        spinner.classList.remove('d-none')
+    } else {
+        spinner.classList.add('d-none')
+    }
+}
 
 
 loadData(6)
