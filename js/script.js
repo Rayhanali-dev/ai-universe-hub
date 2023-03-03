@@ -41,7 +41,7 @@ const displayData = (data, limit) => {
                     </div>
                 </div>
                 <div>
-                    <button onclick="modals('${singleElement.id}')" class="btn"><i class="fa-solid fa-arrow-right" data-bs-toggle="modal" data-bs-target="#aimodal"></i></button>
+                    <button onclick="modals('${singleElement.id}')" class="btn btn-success rounded-circle" type="button"><i class="fa-solid fa-arrow-right" data-bs-toggle="modal" data-bs-target="#aimodal"></i></button>
                 </div>
             </div>
         </div>`;
@@ -77,49 +77,48 @@ const showModalDetails = (showModal) => {
     const modalBox = document.getElementById('modal-box');
     modalBox.innerHTML = `
     <div class="row">
-    <div class="col-lg-6">
-        <h4>${showModal.description}</h4>
-        <div class="row">
-            <div class="col-lg-4 text-center bg-light shadow-sm">
-                <span class="fw-bold">${showModal.pricing ? showModal.pricing[0].price : "data not found"}</sp>
-                <span class="fw-bold">${showModal.pricing ? showModal.pricing[0].plan : "data not found"}</span>
+        <div class="col-lg-6 border">
+            <h4>${showModal.description}</h4>
+            <div class="row">
+                <div class="col-lg-4 text-center bg-light shadow-sm">
+                    <span class="fw-bold">${showModal.pricing ? showModal.pricing[0].price : "data not found"}</sp>
+                    <span class="fw-bold">${showModal.pricing ? showModal.pricing[0].plan : "data not found"}</span>
+                </div>
+                <div class="col-lg-4 text-center bg-light shadow-sm">
+                    <span class="fw-bold">${showModal.pricing ? showModal.pricing[1].price : "data not found"}</sp>
+                    <span class="fw-bold">${showModal.pricing ? showModal.pricing[1].plan : "data not found"}</span>
+                </div>
+                <div class="col-lg-4 text-center bg-light shadow-sm">
+                    <span class="fw-bold">${showModal.pricing ? showModal.pricing[2].price : "data not found"}</sp>
+                    <span class="fw-bold">${showModal.pricing ? showModal.pricing[2].plan : "data not found"}</span>
+                </div>
             </div>
-            <div class="col-lg-4 text-center bg-light shadow-sm">
-                <span class="fw-bold">${showModal.pricing ? showModal.pricing[1].price : "data not found"}</sp>
-                <span class="fw-bold">${showModal.pricing ? showModal.pricing[1].plan : "data not found"}</span>
-            </div>
-            <div class="col-lg-4 text-center bg-light shadow-sm">
-                <span class="fw-bold">${showModal.pricing ? showModal.pricing[2].price : "data not found"}</sp>
-                <span class="fw-bold">${showModal.pricing ? showModal.pricing[2].plan : "data not found"}</span>
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4>Features</h4>
+                    <ul>
+                        <li>Customizable responses</li>
+                        <li>Multilingual support</li>
+                        <li>Seamless integration</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <h4>Integrations</h4>
+                    <ul>
+                        <li>Customizable responses</li>
+                        <li>Multilingual support</li>
+                        <li>Seamless integration</li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <h4>Features</h4>
-                <ul>
-                    <li>Customizable responses</li>
-                    <li>Multilingual support</li>
-                    <li>Seamless integration</li>
-                </ul>
-            </div>
-            <div class="col-lg-6">
-                <h4>Integrations</h4>
-                <ul>
-                    <li>Customizable responses</li>
-                    <li>Multilingual support</li>
-                    <li>Seamless integration</li>
-                </ul>
-            </div>
+        <div class="col-lg-6 text-center border">
+            <img class="w-100 img-fluid modal-img" src="${showModal.image_link[0]}">
+            <h3>${showModal.input_output_examples ? showModal.input_output_examples[0].input : 'Data Not Found'}</h3>
+            <p>${showModal.input_output_examples ? showModal.input_output_examples[0].output : 'Data Not Found'}</p>
         </div>
-    </div>
-    <div class="col-lg-6">
-        <h3>Hi, how are you doing today?</h3>
-        <p>I'm doing well, thank you for asking. How can I assist you today?</p>
-    </div>
-</div>
-    `
+    </div>`;
 }
-
 
 
 
