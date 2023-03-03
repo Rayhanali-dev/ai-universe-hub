@@ -22,7 +22,6 @@ const displayData = (data, limit) => {
         div.classList.add('col')
         const features = singleElement.features;
         const featureList = features.map(feature => `<li>${feature}</li>`).join('');
-        // console.log(featureList);
 
         div.innerHTML =  `
         <div class="card h-100">
@@ -42,7 +41,7 @@ const displayData = (data, limit) => {
                     </div>
                 </div>
                 <div>
-                    <button class="btn"><i class="fa-solid fa-arrow-right"></i></button>
+                    <button onclick="modals('${singleElement.id}')" class="btn"><i class="fa-solid fa-arrow-right" data-bs-toggle="modal" data-bs-target="#aimodal"></i></button>
                 </div>
             </div>
         </div>`;
@@ -64,6 +63,64 @@ const toggleSpinner = (isLoading) => {
         spinner.classList.add('d-none')
     }
 }
+
+
+const modals = (id) => {
+    fetch(`https://openapi.programming-hero.com/api/ai/tool/${id}`)
+    .then(res => res.json())
+    .then(data => showModalDetails(data.data))
+}
+
+
+const showModalDetails = (showModal) => {
+    console.log(showModal);
+    const modalBox = document.getElementById('modal-box');
+    modalBox.innerHTML = `
+    <div class="row">
+    <div class="col-lg-6">
+        <h4>${showModal.description}</h4>
+        <div class="row">
+            <div class="col-lg-4 text-center bg-light shadow-sm">
+                <span class="fw-bold">${showModal.pricing ? showModal.pricing[0].price : "data not found"}</sp>
+                <span class="fw-bold">${showModal.pricing ? showModal.pricing[0].plan : "data not found"}</span>
+            </div>
+            <div class="col-lg-4 text-center bg-light shadow-sm">
+                <span class="fw-bold">${showModal.pricing ? showModal.pricing[1].price : "data not found"}</sp>
+                <span class="fw-bold">${showModal.pricing ? showModal.pricing[1].plan : "data not found"}</span>
+            </div>
+            <div class="col-lg-4 text-center bg-light shadow-sm">
+                <span class="fw-bold">${showModal.pricing ? showModal.pricing[2].price : "data not found"}</sp>
+                <span class="fw-bold">${showModal.pricing ? showModal.pricing[2].plan : "data not found"}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>Features</h4>
+                <ul>
+                    <li>Customizable responses</li>
+                    <li>Multilingual support</li>
+                    <li>Seamless integration</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <h4>Integrations</h4>
+                <ul>
+                    <li>Customizable responses</li>
+                    <li>Multilingual support</li>
+                    <li>Seamless integration</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <h3>Hi, how are you doing today?</h3>
+        <p>I'm doing well, thank you for asking. How can I assist you today?</p>
+    </div>
+</div>
+    `
+}
+
+
 
 
 loadData(6)
