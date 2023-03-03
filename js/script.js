@@ -41,7 +41,7 @@ const displayData = (data, limit) => {
                     </div>
                 </div>
                 <div>
-                    <button onclick="modals('${singleElement.id}')" class="btn btn-success rounded-circle" type="button"><i class="fa-solid fa-arrow-right" data-bs-toggle="modal" data-bs-target="#aimodal"></i></button>
+                    <button onclick="modals('${singleElement.id}')" class="btn btn-success rounded-circle" type="button" data-bs-toggle="modal" data-bs-target="#aimodal"><i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
         </div>`;
@@ -97,17 +97,13 @@ const showModalDetails = (showModal) => {
                 <div class="col-lg-6">
                     <h4>Features</h4>
                     <ul>
-                        <li>Customizable responses</li>
-                        <li>Multilingual support</li>
-                        <li>Seamless integration</li>
+                        ${featuresItems(showModal.features)}
                     </ul>
                 </div>
                 <div class="col-lg-6">
                     <h4>Integrations</h4>
                     <ul>
-                        <li>Customizable responses</li>
-                        <li>Multilingual support</li>
-                        <li>Seamless integration</li>
+                        ${showModal.integrations ? integrations(showModal.integrations) : 'data not found'}
                     </ul>
                 </div>
             </div>
@@ -120,6 +116,21 @@ const showModalDetails = (showModal) => {
     </div>`;
 }
 
+const featuresItems = (featuresArray) => {
+    let featurelist = '';
+    for (const x in featuresArray){
+        featurelist += `<li>${featuresArray[x].feature_name}</li>`
+    }
+    return featurelist
+}
 
+const integrations = (integration) => {
+    let integrationlist = '';
+    integration.forEach(element => {
+        console.log(element);
+        integrationlist += `<li>${element}</li>`
+    })
+    return integrationlist
+}
 
 loadData(6)
