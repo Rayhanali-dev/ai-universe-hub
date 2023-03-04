@@ -6,4 +6,7 @@
     position: absolute;
     top: 15px;
     right: 10px;
+    background-color: brown;
+    border: none;
+    color: #fff;
 }

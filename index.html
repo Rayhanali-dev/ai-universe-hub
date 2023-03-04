@@ -15,23 +15,25 @@
 
 <body class="bg-black" onload="toggleSpinner(true)">
 
+    <!-- header -->
     <header class="text-center my-5">
         <h2 class="mb-2">AI Universe Hub</h2>
-        <button class="btn btn-primary">Sort By Date</button>
+        <button id="sort-btn" class="btn btn-primary">Sort By Date</button>
     </header>
 
     <section>
         <div class="container">
+            <!-- Spinner -->
             <div id="spinner" class="d-flex justify-content-center d-none">
                 <div class="spinner-border" role="status">
                   <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
-
+            <!-- Card -->
             <div class="row row-cols-1 row-cols-md-3 g-4" id="feature-container">
 
             </div>
-
+            <!-- show all btn  -->
             <div id="show-btn" class="text-center my-3 d-none">
                 <button id="btn-clicked" class="btn btn-primary">See More</button>
             </div>
@@ -39,7 +41,7 @@
 
         <!-- Modal -->
         <div class="modal fade" id="aimodal" tabindex="-1" aria-labelledby="aimodalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
                     <div class="modal-header border-bottom-0">
                         <button type="button" class="btn-close position-absolute top-0 end-0" data-bs-dismiss="modal" aria-label="Close"></button>
