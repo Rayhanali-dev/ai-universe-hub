@@ -7,15 +7,13 @@ const loadData = (limit) => {
 
 // display data
 const displayData = (data, limit) => {
-
     // parent div
     const parentContainer = document.getElementById('feature-container');
     parentContainer.textContent = "";
 
     const showBtn = document.getElementById('show-btn');
-    
+
     // show 6 card
-    
     if (limit && data.length > 6) {
         data = data.slice(0, 6);
         showBtn.classList.remove('d-none')
@@ -23,37 +21,17 @@ const displayData = (data, limit) => {
         showBtn.classList.add('d-none')
     }
 
-    // sort by date
-    document.getElementById('sort-btn').addEventListener('click', function(){
-        const sortByDate = (a, b) => {
-            const dateA = new Date(a.published_in);
-            const dateB = new Date(b.published_in);
-            
-            if (dateA < dateB) {
-                return 1; 
-            } else if (dateA > dateB) {
-                return -1;
-            } else {
-                return 0
-            }
-        }
-
-        displayData(data.sort(sortByDate));
-
-        
-    })
-
     // get every single data
     data.forEach(singleElement => {
         console.log(singleElement);
-        
+
         const div = document.createElement('div');
         div.classList.add('col')
         const features = singleElement.features;
         const featureList = features.map(feature => `<li>${feature}</li>`).join('');
 
-        div.innerHTML =  `
-        <div class="card h-100">
+        div.innerHTML = `
+        <div class="card p-3 border h-100">
             <img src="${singleElement.image}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Features</h5>
@@ -76,19 +54,40 @@ const displayData = (data, limit) => {
         </div>`;
         parentContainer.appendChild(div)
     });
-
     // stop spinner after loading all data
     toggleSpinner(false)
 }
 
+// sort by date
+const loadData2 = (limit) => {
+    fetch(`https://openapi.programming-hero.com/api/ai/tools`)
+        .then(res => res.json())
+        .then(data => displaySort(data.data.tools, limit))
+}
 
+const displaySort = (data, limit) => {
+    console.log(data);
+    const rk = data.sort((a, b) => {
+        return new Date(b.published_in) - new Date(a.published_in)
+    })
 
+    displayData(rk, limit);
+}
 
-// btn click to show all data 
-document.getElementById('btn-clicked').addEventListener('click', function(){
-    loadData()
+let sorted;
+document.getElementById('sort-btn').addEventListener('click', function () {
+    sorted = true;
+    loadData2(6)
 })
 
+// btn click to show all data 
+document.getElementById('btn-clicked').addEventListener('click', function () {
+    if (sorted) {
+        loadData2()
+    } else {
+        loadData()
+    }
+})
 
 // toggle spinner
 const toggleSpinner = (isLoading) => {
@@ -103,8 +102,8 @@ const toggleSpinner = (isLoading) => {
 // modal id
 const modals = (id) => {
     fetch(`https://openapi.programming-hero.com/api/ai/tool/${id}`)
-    .then(res => res.json())
-    .then(data => showModalDetails(data.data))
+        .then(res => res.json())
+        .then(data => showModalDetails(data.data))
 }
 
 // display modal 
@@ -158,7 +157,7 @@ const showModalDetails = (showModal) => {
 // modal feature items
 const featuresItems = (featuresArray) => {
     let featurelist = '';
-    for (const x in featuresArray){
+    for (const x in featuresArray) {
         featurelist += `<li>${featuresArray[x].feature_name}</li>`
     }
     return featurelist
@@ -173,6 +172,5 @@ const integrations = (integration) => {
     })
     return integrationlist
 }
-
 
 loadData(6)
