@@ -18,27 +18,18 @@ const displayData = (data, limit) => {
     
     if (limit && data.length > 6) {
         data = data.slice(0, 6);
-        showBtn.classList.remove ('d-none')
+        showBtn.classList.remove('d-none')
     } else {
         showBtn.classList.add('d-none')
     }
 
     // sort by date
     document.getElementById('sort-btn').addEventListener('click', function(){
-
-        if (limit && data.length > 6) {
-            data = data.slice(0, 6);
-            showBtn.classList.remove ('d-none')
-        } else {
-            showBtn.classList.add('d-none')
-        }
-
         const sortByDate = (a, b) => {
             const dateA = new Date(a.published_in);
             const dateB = new Date(b.published_in);
-        
+            
             if (dateA < dateB) {
-                
                 return 1; 
             } else if (dateA > dateB) {
                 return -1;
@@ -46,7 +37,10 @@ const displayData = (data, limit) => {
                 return 0
             }
         }
+
         displayData(data.sort(sortByDate));
+
+        
     })
 
     // get every single data
@@ -122,7 +116,7 @@ const showModalDetails = (showModal) => {
         <div class="col-sm-5 mx-auto border">
             <h4 class="py-4">${showModal.description}</h4>
             <div class="row pb-4">
-                <div class="col-sm-4 p-2 text-center bg-light shadow-sm">
+                <div class="col-sm-3 mx-auto p-2 text-center bg-light shadow-sm">
                     <span class="fw-bold">${showModal.pricing ? showModal.pricing[0].price : "Free of cost"}</span>
                     <span class="fw-bold">${showModal.pricing ? showModal.pricing[0].plan : "Basic"}</span>
                 </div>
@@ -130,7 +124,7 @@ const showModalDetails = (showModal) => {
                     <span class="fw-bold">${showModal.pricing ? showModal.pricing[1].price : "Free of cost"}</span>
                     <span class="fw-bold">${showModal.pricing ? showModal.pricing[1].plan : "Pro"}</span>
                 </div>
-                <div class="col-sm-4 p-2 text-center bg-light shadow-sm">
+                <div class="col-sm-3 mx-auto p-2 text-center bg-light shadow-sm">
                     <span class="fw-bold">${showModal.pricing ? showModal.pricing[2].price : "free of cost"}</span>
                     <span class="fw-bold">${showModal.pricing ? showModal.pricing[2].plan : "entership"}</span>
                 </div>
