@@ -10,9 +10,7 @@ const displayData = (data, limit) => {
     // parent div
     const parentContainer = document.getElementById('feature-container');
     parentContainer.textContent = "";
-
     const showBtn = document.getElementById('show-btn');
-
     // show 6 card
     if (limit && data.length > 6) {
         data = data.slice(0, 6);
@@ -24,12 +22,10 @@ const displayData = (data, limit) => {
     // get every single data
     data.forEach(singleElement => {
         console.log(singleElement);
-
         const div = document.createElement('div');
         div.classList.add('col')
         const features = singleElement.features;
         const featureList = features.map(feature => `<li>${feature}</li>`).join('');
-
         div.innerHTML = `
         <div class="card p-3 border h-100">
             <img src="${singleElement.image}" class="card-img-top" alt="...">
